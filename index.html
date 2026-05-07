@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rental Monitoring System — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --teal-50:#E1F5EE;--teal-100:#9FE1CB;--teal-200:#5DCAA5;
+  --teal-400:#1D9E75;--teal-600:#0F6E56;--teal-800:#085041;
+  --white:#fff;--gray-50:#F8FAF9;--gray-100:#EEF1F0;
+  --gray-300:#C4CCC9;--gray-500:#7A8985;--gray-700:#3D4E48;--gray-900:#1A2622;
+  --danger:#DC2626;--radius:12px;--radius-sm:8px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--gray-50);min-height:100vh;
+  display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+body::before{content:'';position:fixed;top:-120px;right:-120px;width:420px;height:420px;
+  border-radius:50%;background:radial-gradient(circle,var(--teal-50) 0%,transparent 70%);pointer-events:none;}
+body::after{content:'';position:fixed;bottom:-100px;left:-100px;width:360px;height:360px;
+  border-radius:50%;background:radial-gradient(circle,var(--teal-50) 0%,transparent 70%);pointer-events:none;}
+
+.card{background:var(--white);border-radius:20px;box-shadow:0 8px 40px rgba(15,110,86,.15);
+  width:100%;max-width:440px;padding:44px 40px 40px;position:relative;z-index:1;border:1px solid var(--teal-50);}
+.logo-area{display:flex;align-items:center;gap:12px;margin-bottom:32px;}
+.logo-icon{width:44px;height:44px;border-radius:var(--radius-sm);background:var(--teal-400);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.logo-icon svg{width:22px;height:22px;fill:white}
+.logo-text h1{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--teal-800);letter-spacing:-.2px;}
+.logo-text p{font-size:11px;color:var(--gray-500);font-weight:400;letter-spacing:.4px;text-transform:uppercase;}
+.tab-row{display:flex;background:var(--gray-100);border-radius:var(--radius-sm);padding:4px;margin-bottom:32px;}
+.tab{flex:1;padding:9px 0;border:none;background:transparent;border-radius:6px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;color:var(--gray-500);cursor:pointer;transition:all .22s;}
+.tab.active{background:var(--white);color:var(--teal-600);box-shadow:0 1px 6px rgba(15,110,86,.12);}
+.form-panel{display:none;} .form-panel.active{display:block;}
+.form-title{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--gray-900);margin-bottom:6px;letter-spacing:-.4px;}
+.form-subtitle{font-size:14px;color:var(--gray-500);margin-bottom:28px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:13px;font-weight:500;color:var(--gray-700);margin-bottom:7px;}
+.input-wrap{position:relative;display:flex;align-items:center;}
+.input-icon{position:absolute;left:13px;pointer-events:none;display:flex;align-items:center;}
+.input-icon svg{width:16px;height:16px;stroke:#C4CCC9;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.input-wrap input{width:100%;padding:11px 14px 11px 40px;border:1.5px solid var(--gray-100);border-radius:var(--radius-sm);
+  font-family:'DM Sans',sans-serif;font-size:14px;color:var(--gray-900);background:var(--gray-50);outline:none;transition:all .18s;}
+.input-wrap input::placeholder{color:var(--gray-300);}
+.input-wrap input:focus{border-color:var(--teal-200);background:var(--white);box-shadow:0 0 0 3px rgba(29,158,117,.10);}
+.eye-btn{position:absolute;right:12px;background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center;}
+.eye-btn svg{width:16px;height:16px;stroke:#C4CCC9;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.eye-btn:hover svg{stroke:var(--teal-400);}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.forgot{display:block;text-align:right;font-size:12px;color:var(--teal-400);text-decoration:none;
+  margin-top:-10px;margin-bottom:20px;font-weight:500;}
+.forgot:hover{color:var(--teal-600);}
+.terms{display:flex;align-items:flex-start;gap:10px;margin-bottom:22px;}
+.terms input[type=checkbox]{margin-top:2px;accent-color:var(--teal-400);width:15px;height:15px;flex-shrink:0;cursor:pointer;}
+.terms label{font-size:12.5px;color:var(--gray-500);line-height:1.5;cursor:pointer;}
+.terms label a{color:var(--teal-400);text-decoration:none;font-weight:500;}
+.btn-submit{width:100%;padding:13px;background:var(--teal-400);color:white;border:none;border-radius:var(--radius-sm);
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;
+  transition:all .18s;box-shadow:0 4px 14px rgba(29,158,117,.25);display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-submit:hover{background:var(--teal-600);transform:translateY(-1px);}
+.btn-submit:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.switch-link{text-align:center;margin-top:22px;font-size:13.5px;color:var(--gray-500);}
+.switch-link button{background:none;border:none;color:var(--teal-400);font-family:'DM Sans',sans-serif;
+  font-size:13.5px;font-weight:600;cursor:pointer;padding:0;}
+.switch-link button:hover{text-decoration:underline;}
+.alert{padding:11px 14px;border-radius:var(--radius-sm);font-size:13.5px;margin-bottom:18px;display:none;}
+.alert-error{background:#FEE2E2;color:var(--danger);border:1px solid #FECACA;}
+.alert-success{background:#D1FAE5;color:#059669;border:1px solid #A7F3D0;}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:none;}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:480px){.card{margin:16px;padding:32px 24px;}.row-2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo-area">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9" fill="rgba(255,255,255,0.3)"/></svg>
+    </div>
+    <div class="logo-text">
+      <h1>Rental Monitoring System</h1>
+      <p>School Project &mdash; Property Management</p>
+    </div>
+  </div>
+
+  <div class="tab-row">
+    <button class="tab active" onclick="switchTab('login')">Sign In</button>
+    <button class="tab" onclick="switchTab('signup')">Create Account</button>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="form-panel active" id="panel-login">
+    <p class="form-subtitle">Sign in to access your rental dashboard</p>
+    <div class="alert alert-error" id="login-error"></div>
+    <div class="alert alert-success" id="login-success"></div>
+    <div class="field">
+      <label>Email address</label>
+      <div class="input-wrap">
+        <div class="input-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
+        <input type="email" id="login-email" placeholder="you@email.com" autocomplete="email">
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="input-wrap">
+        <div class="input-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <input type="password" id="login-password" placeholder="Enter password" style="padding-right:40px" autocomplete="current-password">
+        <button class="eye-btn" type="button" onclick="togglePwd('login-password',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+    </div>
+    <a href="#" class="forgot">Forgot password?</a>
+    <button class="btn-submit" id="login-btn" onclick="handleLogin()">
+      <div class="spinner" id="login-spinner"></div>
+      <span id="login-btn-text">Sign In</span>
+    </button>
+    <p class="switch-link">Don't have an account? <button onclick="switchTab('signup')">Create one</button></p>
+  </div>
+
+  <!-- SIGNUP -->
+  <div class="form-panel" id="panel-signup">
+    <p class="form-title">Create account</p>
+    <p class="form-subtitle">Register to start monitoring rentals</p>
+    <div class="alert alert-error" id="signup-error"></div>
+    <div class="alert alert-success" id="signup-success"></div>
+    <div class="row-2">
+      <div class="field">
+        <label>First name</label>
+        <div class="input-wrap">
+          <div class="input-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <input type="text" id="signup-first" placeholder="Juan" autocomplete="given-name">
+        </div>
+      </div>
+      <div class="field">
+        <label>Last name</label>
+        <div class="input-wrap">
+          <div class="input-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <input type="text" id="signup-last" placeholder="dela Cruz" autocomplete="family-name">
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Email address</label>
+      <div class="input-wrap">
+        <div class="input-icon"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg></div>
+        <input type="email" id="signup-email" placeholder="you@email.com" autocomplete="email">
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="input-wrap">
+        <div class="input-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <input type="password" id="signup-password" placeholder="Min. 8 characters" style="padding-right:40px" autocomplete="new-password">
+        <button class="eye-btn" type="button" onclick="togglePwd('signup-password',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+    </div>
+    <div class="field">
+      <label>Confirm password</label>
+      <div class="input-wrap">
+        <div class="input-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+        <input type="password" id="signup-confirm" placeholder="Repeat password" style="padding-right:40px" autocomplete="new-password">
+        <button class="eye-btn" type="button" onclick="togglePwd('signup-confirm',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+    </div>
+    <div class="terms">
+      <input type="checkbox" id="agree">
+      <label for="agree">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</label>
+    </div>
+    <button class="btn-submit" id="signup-btn" onclick="handleSignup()">
+      <div class="spinner" id="signup-spinner"></div>
+      <span id="signup-btn-text">Create Account</span>
+    </button>
+    <p class="switch-link">Already have an account? <button onclick="switchTab('login')">Sign in</button></p>
+  </div>
+</div>
+
+<script>
+const API = 'api/auth.php';
+
+function switchTab(t){
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',(i===0&&t==='login')||(i===1&&t==='signup')));
+  document.getElementById('panel-login').classList.toggle('active',t==='login');
+  document.getElementById('panel-signup').classList.toggle('active',t==='signup');
+  hideAlerts();
+}
+function togglePwd(id,btn){
+  const inp=document.getElementById(id);const isT=inp.type==='text';inp.type=isT?'password':'text';
+  btn.querySelector('svg').innerHTML=isT
+    ?'<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'
+    :'<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+}
+function hideAlerts(){document.querySelectorAll('.alert').forEach(a=>{a.style.display='none';a.textContent=''});}
+function showAlert(id,msg){const el=document.getElementById(id);el.textContent=msg;el.style.display='block';}
+function setLoading(prefix,on){
+  document.getElementById(prefix+'-btn').disabled=on;
+  document.getElementById(prefix+'-spinner').style.display=on?'block':'none';
+  document.getElementById(prefix+'-btn-text').textContent=on?(prefix==='login'?'Signing in…':'Creating account…'):(prefix==='login'?'Sign In':'Create Account');
+}
+async function post(action,body){
+  const r=await fetch(`${API}?action=${action}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),credentials:'same-origin'});
+  return r.json();
+}
+async function handleLogin(){
+  hideAlerts();
+  const email=document.getElementById('login-email').value.trim();
+  const pass=document.getElementById('login-password').value;
+  if(!email||!pass){showAlert('login-error','Please enter your email and password.');return;}
+  setLoading('login',true);
+  try{
+    const d=await post('login',{email,password:pass});
+    if(d.success){showAlert('login-success','Signed in! Redirecting…');setTimeout(()=>window.location.href='dashboard.php',900);}
+    else showAlert('login-error',d.message);
+  }catch{showAlert('login-error','Server error. Make sure XAMPP is running.');}
+  setLoading('login',false);
+}
+async function handleSignup(){
+  hideAlerts();
+  const first=document.getElementById('signup-first').value.trim();
+  const last=document.getElementById('signup-last').value.trim();
+  const email=document.getElementById('signup-email').value.trim();
+  const pass=document.getElementById('signup-password').value;
+  const confirm=document.getElementById('signup-confirm').value;
+  const agreed=document.getElementById('agree').checked;
+  if(!first||!last||!email||!pass||!confirm){showAlert('signup-error','All fields are required.');return;}
+  if(pass.length<8){showAlert('signup-error','Password must be at least 8 characters.');return;}
+  if(pass!==confirm){showAlert('signup-error','Passwords do not match.');return;}
+  if(!agreed){showAlert('signup-error','Please agree to the Terms of Service.');return;}
+  setLoading('signup',true);
+  try{
+    const d=await post('signup',{first_name:first,last_name:last,email,password:pass});
+    if(d.success){showAlert('signup-success','Account created! Redirecting…');setTimeout(()=>window.location.href='dashboard.php',900);}
+    else showAlert('signup-error',d.message);
+  }catch{showAlert('signup-error','Server error. Make sure XAMPP is running.');}
+  setLoading('signup',false);
+}
+// Check if already logged in
+fetch(`${API}?action=check`,{credentials:'same-origin'}).then(r=>r.json()).then(d=>{if(d.logged_in) window.location.href='dashboard.php';}).catch(()=>{});
+</script>
+</body>
+</html>
